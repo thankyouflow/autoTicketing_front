@@ -67,7 +67,7 @@ class Login extends React.Component {
         this.handleValueChange = this.handleValueChange.bind(this)
         this.link = this.link.bind(this)
         this.onKeyUp =  this.onKeyUp.bind(this)
-        // this.addCustomer = this.addCustomer.bind(this)
+        this.addCustomer = this.addCustomer.bind(this)
         // this.getUsers = this.getUsers.bind(this)
         // this.componentDidMount = this.componentDidMount.bind(this)
     }
@@ -99,6 +99,10 @@ class Login extends React.Component {
 
     link() {
         if (this.state.site != '' && this.state.pw != '' && this.state.id != '') {
+            this.addCustomer()
+            .then((response) => {
+            let chk = response.data
+            if (chk == '성공') {
             this.props.history.push({
                 pathname: '/ticketing',
                 state: {
@@ -108,10 +112,14 @@ class Login extends React.Component {
                 }
             })
 
-        } else {
+        }
+            else
+                alert("입력값이 잘못되었습니다!")
+            console.log(chk);
+    })}
+        else {
             alert("모든 값을 입력해주세요!")
         }
-
     }
 
     handleFormSubmit(e) {
@@ -121,14 +129,14 @@ class Login extends React.Component {
               console.log(response.data);
       })}
 
-    // addCustomer(){
-    //       const url = 'http://10.106.0.87:8000/api/login/';
-    //       const formData = new FormData();
-    //       formData.append('site', this.state.site)
-    //       formData.append('id', this.state.id)
-    //       formData.append('pw', this.state.pw)
-    //       return post(url, formData)
-    //   }
+    addCustomer(){
+          const url = 'http://10.106.0.87:8000/api/login/';
+          const formData = new FormData();
+          formData.append('site', this.state.site)
+          formData.append('id', this.state.id)
+          formData.append('pw', this.state.pw)
+          return post(url, formData)
+      }
 
     // componentDidMount() {
     //      fetch('api')
