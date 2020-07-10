@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import FlashAutoIcon from '@material-ui/icons/FlashAuto';
 import { post } from 'axios';
 import 'date-fns';
+import ErrorCatch from './ErrorCatch';
 
 const styles = theme => ({
   paper: {
@@ -66,7 +67,7 @@ class Login extends React.Component {
 
 
   addCustomer(){
-        const url = 'http://10.106.0.87:8000/api/';
+        const url = 'http://10.106.0.87:8000/api/ticketing/';
         const formData = new FormData();
         formData.append('url', this.state.url)
         formData.append('xpath', this.state.xpath)
@@ -134,6 +135,7 @@ class Login extends React.Component {
                     value={this.state.xpath}
                     onChange={this.handleValueChange}
                   />
+                  <ErrorCatch>
                   <Button
                     type="submit"
                     fullWidth
@@ -142,7 +144,9 @@ class Login extends React.Component {
                     className={classes.submit}
                     onSubmit={this.addCustomer}
                   >예매하기</Button>
+                  </ErrorCatch>
                       </form>
+
               </div>
             </Container>
           );
